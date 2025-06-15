@@ -1,0 +1,283 @@
+{
+    "connections": {
+        "body_entered-3d02203422c3404485073db03f3034c6-7118372de57f4aa4a35a3e22c9ac8054-_on_hitbox_body_entered---[]": {
+            "from_node_id": "3d02203422c3404485073db03f3034c6",
+            "method": "_on_hitbox_body_entered",
+            "signal": "body_entered",
+            "to_node_id": "7118372de57f4aa4a35a3e22c9ac8054"
+        }
+    },
+    "editable_instances": [],
+    "ext_resources": {
+        "1_57cf6": {
+            "id": "1_57cf6",
+            "idx": 0,
+            "path": "res://assets/enemy.png",
+            "resource_type": "Texture2D",
+            "uid": "uid://dwhi5vmkbnyk4"
+        },
+        "1_urf0o": {
+            "id": "1_urf0o",
+            "idx": 1,
+            "path": "res://components/enemy/enemy.gd",
+            "resource_type": "Script",
+            "uid": "uid://d003tgo4vrak8"
+        }
+    },
+    "format": 3,
+    "load_steps": 10,
+    "nodes": {
+        "1f953e80d0c44137b0a3879f95b9eaa2": {
+            "child_node_ids": {},
+            "id": "1f953e80d0c44137b0a3879f95b9eaa2",
+            "name": "AnimatedSprite2D",
+            "parent_id": "7118372de57f4aa4a35a3e22c9ac8054",
+            "properties": {
+                "animation": {
+                    "order": 3,
+                    "value": "&\"walk\""
+                },
+                "autoplay": {
+                    "order": 4,
+                    "value": "\"walk\""
+                },
+                "position": {
+                    "order": 1,
+                    "value": "Vector2(0, -64)"
+                },
+                "sprite_frames": {
+                    "order": 2,
+                    "value": "SubResource(\"SpriteFrames_2xpc5\")"
+                },
+                "unique_name_in_owner": {
+                    "order": 0,
+                    "value": "true"
+                }
+            },
+            "type": "AnimatedSprite2D"
+        },
+        "30df6e31eb3a4ff6af7d12bef2f183ad": {
+            "child_node_ids": {},
+            "id": "30df6e31eb3a4ff6af7d12bef2f183ad",
+            "name": "RightRay",
+            "parent_id": "7118372de57f4aa4a35a3e22c9ac8054",
+            "properties": {
+                "collision_mask": {
+                    "order": 2,
+                    "value": "5"
+                },
+                "position": {
+                    "order": 1,
+                    "value": "Vector2(37, -3)"
+                },
+                "unique_name_in_owner": {
+                    "order": 0,
+                    "value": "true"
+                }
+            },
+            "type": "RayCast2D"
+        },
+        "3b2f8cb64240447e80311efe65d111e6": {
+            "child_node_ids": {},
+            "id": "3b2f8cb64240447e80311efe65d111e6",
+            "name": "LeftRay",
+            "parent_id": "7118372de57f4aa4a35a3e22c9ac8054",
+            "properties": {
+                "collision_mask": {
+                    "order": 2,
+                    "value": "5"
+                },
+                "position": {
+                    "order": 1,
+                    "value": "Vector2(-37, -3)"
+                },
+                "unique_name_in_owner": {
+                    "order": 0,
+                    "value": "true"
+                }
+            },
+            "type": "RayCast2D"
+        },
+        "3d02203422c3404485073db03f3034c6": {
+            "child_node_ids": {
+                "42e79f6ed6e64b369b4ce9ea1a287b39": 1
+            },
+            "id": "3d02203422c3404485073db03f3034c6",
+            "name": "Hitbox",
+            "parent_id": "7118372de57f4aa4a35a3e22c9ac8054",
+            "properties": {
+                "position": {
+                    "order": 0,
+                    "value": "Vector2(0, -106)"
+                }
+            },
+            "type": "Area2D"
+        },
+        "42e79f6ed6e64b369b4ce9ea1a287b39": {
+            "child_node_ids": {},
+            "id": "42e79f6ed6e64b369b4ce9ea1a287b39",
+            "name": "CollisionShape2D",
+            "parent_id": "3d02203422c3404485073db03f3034c6",
+            "properties": {
+                "position": {
+                    "order": 0,
+                    "value": "Vector2(0, 58.5)"
+                },
+                "shape": {
+                    "order": 1,
+                    "value": "SubResource(\"RectangleShape2D_cepcq\")"
+                }
+            },
+            "type": "CollisionShape2D"
+        },
+        "7118372de57f4aa4a35a3e22c9ac8054": {
+            "child_node_ids": {
+                "1f953e80d0c44137b0a3879f95b9eaa2": 1,
+                "30df6e31eb3a4ff6af7d12bef2f183ad": 3,
+                "3b2f8cb64240447e80311efe65d111e6": 2,
+                "3d02203422c3404485073db03f3034c6": 5,
+                "f9588d6b00bd4b78abb3b69797fa44fa": 4
+            },
+            "id": "7118372de57f4aa4a35a3e22c9ac8054",
+            "name": "Enemy",
+            "properties": {
+                "collision_layer": {
+                    "order": 0,
+                    "value": "8"
+                },
+                "collision_mask": {
+                    "order": 1,
+                    "value": "4"
+                },
+                "floor_constant_speed": {
+                    "order": 2,
+                    "value": "true"
+                },
+                "floor_snap_length": {
+                    "order": 3,
+                    "value": "32.0"
+                },
+                "script": {
+                    "order": 4,
+                    "value": "ExtResource(\"1_urf0o\")"
+                }
+            },
+            "type": "CharacterBody2D"
+        },
+        "f9588d6b00bd4b78abb3b69797fa44fa": {
+            "child_node_ids": {},
+            "id": "f9588d6b00bd4b78abb3b69797fa44fa",
+            "name": "CollisionShape2D",
+            "parent_id": "7118372de57f4aa4a35a3e22c9ac8054",
+            "properties": {
+                "position": {
+                    "order": 0,
+                    "value": "Vector2(0, -39)"
+                },
+                "shape": {
+                    "order": 1,
+                    "value": "SubResource(\"RectangleShape2D_kii40\")"
+                }
+            },
+            "type": "CollisionShape2D"
+        }
+    },
+    "resource_type": "PackedScene",
+    "root_node_id": "7118372de57f4aa4a35a3e22c9ac8054",
+    "sub_resources": {
+        "AtlasTexture_5r7qd": {
+            "id": "AtlasTexture_5r7qd",
+            "idx": 0,
+            "properties": {
+                "atlas": {
+                    "order": 0,
+                    "value": "ExtResource(\"1_57cf6\")"
+                },
+                "region": {
+                    "order": 1,
+                    "value": "Rect2(444, 0, 128, 128)"
+                }
+            },
+            "resource_type": "AtlasTexture"
+        },
+        "AtlasTexture_77x52": {
+            "id": "AtlasTexture_77x52",
+            "idx": 1,
+            "properties": {
+                "atlas": {
+                    "order": 0,
+                    "value": "ExtResource(\"1_57cf6\")"
+                },
+                "region": {
+                    "order": 1,
+                    "value": "Rect2(0, 0, 128, 128)"
+                }
+            },
+            "resource_type": "AtlasTexture"
+        },
+        "AtlasTexture_emkhg": {
+            "id": "AtlasTexture_emkhg",
+            "idx": 2,
+            "properties": {
+                "atlas": {
+                    "order": 0,
+                    "value": "ExtResource(\"1_57cf6\")"
+                },
+                "region": {
+                    "order": 1,
+                    "value": "Rect2(148, 0, 128, 128)"
+                }
+            },
+            "resource_type": "AtlasTexture"
+        },
+        "AtlasTexture_ltgan": {
+            "id": "AtlasTexture_ltgan",
+            "idx": 3,
+            "properties": {
+                "atlas": {
+                    "order": 0,
+                    "value": "ExtResource(\"1_57cf6\")"
+                },
+                "region": {
+                    "order": 1,
+                    "value": "Rect2(296, 0, 128, 128)"
+                }
+            },
+            "resource_type": "AtlasTexture"
+        },
+        "RectangleShape2D_cepcq": {
+            "id": "RectangleShape2D_cepcq",
+            "idx": 6,
+            "properties": {
+                "size": {
+                    "order": 0,
+                    "value": "Vector2(82, 83)"
+                }
+            },
+            "resource_type": "RectangleShape2D"
+        },
+        "RectangleShape2D_kii40": {
+            "id": "RectangleShape2D_kii40",
+            "idx": 5,
+            "properties": {
+                "size": {
+                    "order": 0,
+                    "value": "Vector2(48, 78)"
+                }
+            },
+            "resource_type": "RectangleShape2D"
+        },
+        "SpriteFrames_2xpc5": {
+            "id": "SpriteFrames_2xpc5",
+            "idx": 4,
+            "properties": {
+                "animations": {
+                    "order": 0,
+                    "value": "[{\n\"frames\": [{\n\"duration\": 1.0,\n\"texture\": SubResource(\"AtlasTexture_5r7qd\")\n}],\n\"loop\": true,\n\"name\": &\"hit\",\n\"speed\": 5.0\n}, {\n\"frames\": [{\n\"duration\": 1.0,\n\"texture\": SubResource(\"AtlasTexture_77x52\")\n}, {\n\"duration\": 1.0,\n\"texture\": SubResource(\"AtlasTexture_emkhg\")\n}, {\n\"duration\": 1.0,\n\"texture\": SubResource(\"AtlasTexture_ltgan\")\n}],\n\"loop\": true,\n\"name\": &\"walk\",\n\"speed\": 5.0\n}]"
+                }
+            },
+            "resource_type": "SpriteFrames"
+        }
+    },
+    "uid": "uid://dk0xon0k7ga23"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "thingy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "build:dev": "tsc",
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development",
+    "start": "node out/index.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "@types/node": "^20.11.24",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
+  }
+}
