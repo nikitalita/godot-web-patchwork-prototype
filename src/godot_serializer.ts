@@ -9,7 +9,7 @@ export interface TypeOrInstance {
 }
 
 export interface GodotNode {
-    id: string;
+    id: number;
     name: string;
     type_or_instance: TypeOrInstance;
     instance_placeholder?: string;
@@ -131,7 +131,7 @@ export function serializeGodotScene(structured_content: GodotScene): string {
     }
 
     // Write nodes
-    const nodePathMap = new Map<string, number>();
+    const nodePathMap = new Map<number, number>();
 
     if (structured_content.nodes && structured_content.root_node_id) {
         const rootNode = structured_content.nodes[structured_content.root_node_id];
@@ -143,8 +143,8 @@ export function serializeGodotScene(structured_content: GodotScene): string {
     // Write connections
     const sortedConnections = Object.entries(structured_content.connections)
         .sort(([, a], [, b]) => {
-            const aSort = nodePathMap.get(a.from_node_id.toString()) ?? -1;
-            const bSort = nodePathMap.get(b.from_node_id.toString()) ?? -1;
+            const aSort = nodePathMap.get(a.from_node_id) ?? -1;
+            const bSort = nodePathMap.get(b.from_node_id) ?? -1;
             if (aSort === bSort) {
                 return a.signal.localeCompare(b.signal);
             }
@@ -186,7 +186,7 @@ export function serializeGodotSceneAsUint8Array(structured_content: GodotScene):
     return new TextEncoder().encode(serializeGodotScene(structured_content));
 }
 
-function serializeNode(node: GodotNode, scene: GodotScene, nodePathMap: Map<string, number>): string {
+function serializeNode(node: GodotNode, scene: GodotScene, nodePathMap: Map<number, number>): string {
     let output = '';
     output += `[node name="${node.name}"`;
     // name, type, parent, parent_id_path, owner, owner_uid_path, index, unique_id, node_paths, groups, instance_placeholder, instance
