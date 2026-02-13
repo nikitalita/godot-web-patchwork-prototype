@@ -12,6 +12,7 @@ export async function getDoc(docId: string): Promise<any> {
         var doc = await fetch(DOC_FETCH_URL.replace('[docId]', docId));
         var docJson = await doc.json();
     } catch (e) {
+        console.error("Error getting doc: ", docId);
         console.error(e);
         return null;
     }
@@ -19,7 +20,7 @@ export async function getDoc(docId: string): Promise<any> {
 }
 
 // returns a map of file name to content
-export async function getBranchFiles(docId: string): Promise<Map<string, Uint8Array>> {
+export async function getBranchFiles(projectId: string, branchId?: string): Promise<Map<string, Uint8Array>> {
     var map = new Map<string, Uint8Array>();
     // get the branch metadata doc from the server
     // looks like this:
@@ -63,11 +64,11 @@ export async function getBranchFiles(docId: string): Promise<Map<string, Uint8Ar
 
     // get the branch metadata doc
 
-    var branchMetadata = await getDoc(docId);
+    var branchMetadata = await getDoc(projectId);
 
-    var mainDocId = branchMetadata.main_doc_id;
+    branchId = branchId ?? branchMetadata.main_doc_id;
 
-    var mainDoc = await getDoc(mainDocId);
+    var mainDoc = await getDoc(branchId!);
 
 
     for (const entry of Object.entries(mainDoc.files)) {
@@ -92,8 +93,8 @@ export async function getBranchFiles(docId: string): Promise<Map<string, Uint8Ar
 
 
 // function test() {
-//   //43VtSxRp9ETY7BdQKfgdrpoTzaUi
-//   getBranchFiles("43VtSxRp9ETY7BdQKfgdrpoTzaUi").then((map) => {
+//   //to2i9YGkdhXy3Li4K7FoUSQ9Yzv
+//   getBranchFiles("to2i9YGkdhXy3Li4K7FoUSQ9Yzv").then((map) => {
 //     console.log(map);
 //   });
 // }
