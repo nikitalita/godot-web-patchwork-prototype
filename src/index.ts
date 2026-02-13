@@ -32,29 +32,45 @@ export function getProjectAndImportAndLaunch(editor: any, docId: string) {
       throw new Error("Editor is not initialized");
     }
     for (const [filename, content] of map.entries()) {
-      editor.copyToFS(filename, content);
+      let file = filename.replace("res://", "");
+      editor.copyToFS(`/home/web_user/project/${file}`, content);
     }
 
     const video_driver = 'opengl3';
-    const args = ['--single-window', '--headless', "--path", "/home/web_user/project"];
+    const args = ['--single-window', "--path", "/home/web_user/project"];
     if (video_driver) {
       args.push('--rendering-driver', video_driver);
     }
-    const editor_args = args.concat(["-e", "-q"])
-    editor.start({ 'args': editor_args, 'persistentDrops': true }).then(function () {
+    const editor_args = args.concat(
+      [
+        // '--headless',
+        "-e",
+        // "-q"
+      ]
+    )
+    window.showTab('editor');
+    window.setLoaderEnabled(false);
+    editor.start({ 'args': editor_args, 'persistentDrops': false }).then(function () {
       // setStatusMode('hidden');
       // wait for 10 seconds for it to import the files
-      setTimeout(() => {
+      // setTimeout(() => {
         // start the project
-        editor.start({ 'args': args, 'persistentDrops': true })
-      }, 10000);
+      // editor.start({ 'args': args, 'persistentDrops': true })
+      // }, 10000);
 
     });
   });
 }
 
+// declare showTab('game')
+
 declare global {
-  interface Window { getProjectAndImportAndLaunch: any; }
+  interface Window {
+    getProjectAndImportAndLaunch: any;
+    showTab: (tab: string) => void;
+    setLoaderEnabled: (enabled: boolean) => void;
+    OnEditorExit: any;
+  }
 }
 
 window.getProjectAndImportAndLaunch = getProjectAndImportAndLaunch;

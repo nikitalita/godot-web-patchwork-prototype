@@ -417,6 +417,8 @@ function closeWelcomeModal(dontShowAgain) { // eslint-disable-line no-unused-var
 	}
 }
 		</script>
+		<!-- PATCHWORK: load the bundle.js file -->
+		<script src="bundle.js"></script>
 		<script src="godot.editor.js"></script>
 		<script>
 let editor = null;
@@ -727,26 +729,27 @@ function startEditor(zip) {
 	} else {
 		setStatusMode('indeterminate');
 		editor.init('godot.editor').then(function () {
-			if (zip) {
-				editor.copyToFS('/tmp/preload.zip', zip);
-			}
-			try {
-				// Avoid user creating project in the persistent root folder.
-				editor.copyToFS('/home/web_user/keep', new Uint8Array());
-			} catch (e) {
-				// File exists
-			}
-			selectVideoMode();
-			showTab('editor');
-			setLoaderEnabled(false);
-			const args = ['--project-manager', '--single-window'];
-			if (video_driver) {
-				args.push('--rendering-driver', video_driver);
-			}
-			editor.start({ 'args': args, 'persistentDrops': true }).then(function () {
-				setStatusMode('hidden');
-				initializing = false;
-			});
+			getProjectAndImportAndLaunch(editor, "to2i9YGkdhXy3Li4K7FoUSQ9Yzv");
+//			if (zip) {
+//				editor.copyToFS('/tmp/preload.zip', zip);
+//			}
+//			try {
+//				// Avoid user creating project in the persistent root folder.
+//				editor.copyToFS('/home/web_user/keep', new Uint8Array());
+//			} catch (e) {
+//				// File exists
+//			}
+//			selectVideoMode();
+//			showTab('editor');
+//			setLoaderEnabled(false);
+//			const args = ['--project-manager', '--single-window'];
+//			if (video_driver) {
+//				args.push('--rendering-driver', video_driver);
+//			}
+//			editor.start({ 'args': args, 'persistentDrops': true }).then(function () {
+//				setStatusMode('hidden');
+//				initializing = false;
+//			});
 		}).catch(displayFailureNotice);
 	}
 }
