@@ -1,6 +1,7 @@
 
 import { serializeGodotSceneAsUint8Array } from "./godot_serializer"
-
+// import zip library
+import JSZip from "jszip";
 // const SERVER_URL = "104.131.179.247:8080"
 const SERVER_URL = "24.199.97.236:3000"
 
@@ -91,6 +92,14 @@ export async function getBranchFiles(projectId: string, branchId?: string): Prom
     return map;
 }
 
+export async function getBranchFilesAsZip(projectId: string, branchId?: string): Promise<ArrayBuffer> {
+    var zip = new JSZip();
+    var map = await getBranchFiles(projectId, branchId);
+    for (const [filename, content] of map.entries()) {
+        zip.file(filename.replace("res://", ""), content);
+    }
+    return (await zip.generateAsync({ type: "blob" })).arrayBuffer();
+}
 
 // function test() {
 //   //to2i9YGkdhXy3Li4K7FoUSQ9Yzv

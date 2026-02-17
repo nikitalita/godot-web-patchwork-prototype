@@ -1,5 +1,5 @@
 import path from "path";
-import { getBranchFiles } from "../automerge_getter";
+import { getBranchFiles, getBranchFilesAsZip } from "../automerge_getter";
 import fs from "fs";
 async function testProjectGet() {
     let files = await getBranchFiles("to2i9YGkdhXy3Li4K7FoUSQ9Yzv")
@@ -13,8 +13,17 @@ async function testProjectGet() {
 
 }
 
+async function testProjectGetAsZip() {
+    let buf = new Uint8Array(await getBranchFilesAsZip("to2i9YGkdhXy3Li4K7FoUSQ9Yzv"));
+    fs.writeFileSync("test_project.zip", buf);
+}
+
 testProjectGet().then(() => {
-    console.log("done");
+    testProjectGetAsZip().then(() => {
+        console.log("done");
+    }).catch((error) => {
+        console.error(error);
+    });
 }).catch((error) => {
     console.error(error);
 });

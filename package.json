@@ -11,6 +11,7 @@
     "start": "node out/index.js"
   },
   "dependencies": {
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
     "typescript": "^5.7.3",
