@@ -709,7 +709,7 @@ function startEditor(zip) {
 		'emscriptenPoolSize': concurrency,
 		'godotPoolSize': Math.floor(concurrency / 3), // Ensures at least 4 threads for the pool (see above).
 	};
-	editor = new Engine(editorConfig);
+	//editor = new Engine(editorConfig);
 
 	function displayFailureNotice(err) {
 		console.error(err);
@@ -723,33 +723,11 @@ function startEditor(zip) {
 		setStatusMode('notice');
 		initializing = false;
 	}
-
 	if (!Engine.isWebGLAvailable()) {
 		displayFailureNotice('WebGL not available');
 	} else {
-		setStatusMode('indeterminate');
-		editor.init('godot.editor').then(function () {
-			getProjectAndImportAndLaunch(editor, "to2i9YGkdhXy3Li4K7FoUSQ9Yzv");
-//			if (zip) {
-//				editor.copyToFS('/tmp/preload.zip', zip);
-//			}
-//			try {
-//				// Avoid user creating project in the persistent root folder.
-//				editor.copyToFS('/home/web_user/keep', new Uint8Array());
-//			} catch (e) {
-//				// File exists
-//			}
-//			selectVideoMode();
-//			showTab('editor');
-//			setLoaderEnabled(false);
-//			const args = ['--project-manager', '--single-window'];
-//			if (video_driver) {
-//				args.push('--rendering-driver', video_driver);
-//			}
-//			editor.start({ 'args': args, 'persistentDrops': true }).then(function () {
-//				setStatusMode('hidden');
-//				initializing = false;
-//			});
+		getProjectAndImport("to2i9YGkdhXy3Li4K7FoUSQ9Yzv", editorConfig).then(() => {
+			Execute(['--path', '/home/web_user/project']);
 		}).catch(displayFailureNotice);
 	}
 }

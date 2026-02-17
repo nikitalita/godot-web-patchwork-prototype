@@ -10,27 +10,22 @@ import { getBranchFiles } from "./automerge_getter"
 // // })
 
 
-export function getProjectAndImportAndLaunch(editor: any, docId: string) {
-  //   editor.copyToFS('/tmp/preload.zip', zip);
-  // }
-  // try {
-  //   // Avoid user creating project in the persistent root folder.
-  //   editor.copyToFS('/home/web_user/keep', new Uint8Array());
-  // } catch (e) {
-  //   // File exists
-  // }
-  // selectVideoMode();
-  // showTab('editor');
-  // setLoaderEnabled(false);
+export function getProjectAndImport(docId: string, editorConfig: any): Promise<void> {
 
-  // all we're doing is 
-
-  const branchFiles = getBranchFiles(docId).then((map) => {
-    // print number of files
-    console.log("Got branch files: ", map.size);
+  console.log("HALDO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  return new Promise(async (resolve) => {
+    editorConfig.onExit = () => {
+      resolve();
+    };
+    let editor = new window.Engine(editorConfig);
+    await editor.init('godot.editor')
+  // all we're doing is importing the files into the editor
     if (!editor) {
       throw new Error("Editor is not initialized");
     }
+    const map = await getBranchFiles(docId)
+    // print number of files
+    console.log("Got branch files: ", map.size);
     for (const [filename, content] of map.entries()) {
       let file = filename.replace("res://", "");
       editor.copyToFS(`/home/web_user/project/${file}`, content);
@@ -43,34 +38,28 @@ export function getProjectAndImportAndLaunch(editor: any, docId: string) {
     }
     const editor_args = args.concat(
       [
-        // '--headless',
+        '--headless',
         "-e",
-        // "-q"
+        "-q"
       ]
     )
     window.showTab('editor');
     window.setLoaderEnabled(false);
-    editor.start({ 'args': editor_args, 'persistentDrops': false }).then(function () {
-      // setStatusMode('hidden');
-      // wait for 10 seconds for it to import the files
-      // setTimeout(() => {
-        // start the project
-      // editor.start({ 'args': args, 'persistentDrops': true })
-      // }, 10000);
-
-    });
+    await editor.start({ 'args': editor_args, 'persistentDrops': false })
   });
+
 }
 
 // declare showTab('game')
 
 declare global {
   interface Window {
-    getProjectAndImportAndLaunch: any;
+    getProjectAndImport: any;
     showTab: (tab: string) => void;
     setLoaderEnabled: (enabled: boolean) => void;
     OnEditorExit: any;
+    Engine: any;
   }
 }
 
-window.getProjectAndImportAndLaunch = getProjectAndImportAndLaunch;
+window.getProjectAndImport = getProjectAndImport;
