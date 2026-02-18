@@ -11,9 +11,7 @@ import { getBranchFiles } from "./automerge_getter"
 
 
 export function getProjectAndImport(docId: string, editorConfig: any): Promise<void> {
-
-  console.log("HALDO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
     editorConfig.onExit = () => {
       resolve();
     };
@@ -38,12 +36,12 @@ export function getProjectAndImport(docId: string, editorConfig: any): Promise<v
     }
     const editor_args = args.concat(
       [
-        // '--headless',
+        // '--headless', -- this ends up throwing an error, just don't show the tab
         "-e",
-        "-q"
+        "--quit"
       ]
     )
-    window.showTab('editor');
+    // window.showTab('editor');
     window.setLoaderEnabled(false);
     await editor.start({ 'args': editor_args, 'persistentDrops': false })
   });
