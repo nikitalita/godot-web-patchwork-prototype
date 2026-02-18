@@ -38,7 +38,7 @@ export function getProjectAndImport(docId: string, editorConfig: any): Promise<v
     }
     const editor_args = args.concat(
       [
-        '--headless',
+        // '--headless',
         "-e",
         "-q"
       ]

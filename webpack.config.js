@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = (env, argv) => ({
   context: path.resolve(__dirname, 'src'),
   entry: './index.ts',
+  // exclude dist folder from the output
   module: {
     rules: [
       {
@@ -18,12 +19,13 @@ module.exports = (env, argv) => ({
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
-    compress: true,
+    compress: false,
     port: 9000,
     headers: {
       "Cross-Origin-Opener-Policy-Report-Only": "same-origin",
